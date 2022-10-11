@@ -12,6 +12,7 @@ import java.time.Clock.systemUTC
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.duration._
 import scala.concurrent.{Await, Future}
+import com.madgag.scala.collection.decorators._
 
 object Lambda extends Logging {
 
@@ -71,9 +72,9 @@ object Lambda extends Logging {
         existingRecordsByCapiId.view.filterKeys(idsOfContentThatIsKnownToBeFine)
       }.toMap
 
-      (unchangedRecordsForContentThatIsKnownToBeFine ++ updatedAvailabilityReports).view.mapValues { record =>
+      (unchangedRecordsForContentThatIsKnownToBeFine ++ updatedAvailabilityReports).mapV { record =>
         ContentAvailabilityInGoogleIndex(contentSummariesById(record.capiId), record)
-      }.toMap
+      }
     }
   }
 

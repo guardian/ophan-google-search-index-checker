@@ -23,6 +23,7 @@ libraryDependencies ++= Seq(
   "ch.qos.logback" % "logback-classic" % "1.4.1",
   "com.lihaoyi" %% "upickle" % "2.0.0",
 
+  "com.madgag" %% "scala-collection-plus" % "0.11",
   "com.google.http-client" % "google-http-client-gson" % "1.42.2",
   "com.google.apis" % "google-api-services-customsearch" % "v1-rev20210918-2.0.0",
   "org.scanamo" %% "scanamo" % "1.0.0-M20",
