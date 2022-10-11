@@ -21,9 +21,16 @@ case class ContentSummary(
    * reliably should get this content as one of the top hits. The headline of
    * the article would be one candidate for the value, but the headlines can
    * contain characters that are difficult to escape, eg quotes & double-quotes.
-   * The path of the webUrl is fairly reliable, so far as I can see.
+   *
+   * We previously used the quoted path of the webUrl, but that failed
+   * to find results when the path contained double-dashes (eg "england--bond") like
+   * https://www.theguardian.com/business/live/2022/oct/11/bank-of-england--bond-markets-gilts-uk-unemployment-ifs-spending-cuts-imf-outlook-business-live
+   *
+   * Google themselves recommend simply using the full url: "For a missing page:
+   * Search Google for the full URL of your page." - https://support.google.com/webmasters/answer/7474347?hl=en
+   *
    */
-  val reliableSearchTerm: String = s""""${webUrl.getPath}""""
+  val reliableSearchTerm: String = webUrl.toString
 
   val googleSearchUiUrl: URI = URI.create(s"https://www.google.com/search?q=${URLEncoder.encode(reliableSearchTerm, UTF_8)}")
 
