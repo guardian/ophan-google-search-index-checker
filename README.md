@@ -2,7 +2,7 @@
 
 _Checking if Guardian content appears in Google search_
  
-To understand more about this problem we are trying to solve check this [document](https://docs.google.com/document/d/1lWOM-6mkGaPsI0YpF2HjrkI--6X1AlinaeIOhfmCy4I/edit?hl=en-GB&forcehl=1) 
+Guardian staff: For more background on this issue, see this Guardian-scoped [document](https://docs.google.com/document/d/1lWOM-6mkGaPsI0YpF2HjrkI--6X1AlinaeIOhfmCy4I/edit?hl=en-GB&forcehl=1).
 
 ## Steps performed by the checker
 
