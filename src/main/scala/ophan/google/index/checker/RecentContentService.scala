@@ -18,6 +18,7 @@ class RecentContentService(
     .orderBy("newest").useDate("first-publication")
     .showFields("firstPublicationDate")
     .fromDate(Some(Instant.now().minus(4, HOURS)))
+    .tag("-tone/sponsoredfeatures,-type/crossword,-extra/extra,-tone/advertisement-features") // copied from https://github.com/guardian/frontend/blob/9a69dd4fdc2f09cbc2459dedd933b03215d2cad7/applications/app/services/NewsSiteMap.scala#L65
     .pageSize(100)
   
   def fetchRecentContent(): Future[Seq[ContentSummary]] = client.getResponse(query()) map { resp =>
