@@ -26,11 +26,17 @@ case class ContentSummary(
    * to find results when the path contained double-dashes (eg "england--bond") like
    * https://www.theguardian.com/business/live/2022/oct/11/bank-of-england--bond-markets-gilts-uk-unemployment-ifs-spending-cuts-imf-outlook-business-live
    *
-   * Google themselves recommend simply using the full url: "For a missing page:
+   * We also tried searching with just the full URL, as recommended by google: "For a missing page:
    * Search Google for the full URL of your page." - https://support.google.com/webmasters/answer/7474347?hl=en
+   * however we found cases on other sites where this didn't work:
+   *  - https://www.nytimes.com/interactive/2021/us/martin-indiana-covid-cases.html
+   *  - https://www.nytimes.com/video/middle-east
+   *
+   * From testing, we've discovered you can search with the full webUrl, and the path in quotes,
+   * and this seems to cover the situations where each of the methods failed individually.
    *
    */
-  val reliableSearchTerm: String = webUrl.toString
+  val reliableSearchTerm: String = s"${webUrl.toString} \"${webUrl.getPath}\""
 
   val googleSearchUiUrl: URI = URI.create(s"https://www.google.com/search?q=${URLEncoder.encode(reliableSearchTerm, UTF_8)}")
 
