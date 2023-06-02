@@ -18,7 +18,7 @@ scalacOptions ++= Seq(
 
 libraryDependencies ++= Seq(
   "com.amazonaws" % "aws-lambda-java-core" % "1.2.2",
-  "com.amazonaws" % "aws-lambda-java-events" % "3.11.0",
+  "com.amazonaws" % "aws-lambda-java-events" % "3.11.2",
   "net.logstash.logback" % "logstash-logback-encoder" % "7.2",
   "org.slf4j" % "log4j-over-slf4j" % "1.7.36", //  log4j-over-slf4j provides `org.apache.log4j.MDC`, which is dynamically loaded by the Lambda runtime
   "ch.qos.logback" % "logback-classic" % "1.4.1",
