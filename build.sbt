@@ -28,7 +28,7 @@ libraryDependencies ++= Seq(
   "com.google.http-client" % "google-http-client-gson" % "1.42.3",
   "com.google.apis" % "google-api-services-customsearch" % "v1-rev20230319-2.0.0",
   "org.scanamo" %% "scanamo" % "1.0.0-M23",
-  ("com.gu" %% "content-api-client-default" % "19.0.4").cross(CrossVersion.for3Use2_13),
+  ("com.gu" %% "content-api-client-default" % "19.0.5").cross(CrossVersion.for3Use2_13),
   "org.scalatest" %% "scalatest" % "3.2.12" % Test
 
 ) ++ Seq("ssm", "url-connection-client").map(artifact => "software.amazon.awssdk" % artifact % "2.17.251")
