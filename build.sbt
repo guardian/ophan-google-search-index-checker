@@ -8,7 +8,7 @@ description:= "Checking whether Guardian content is available in google search"
 
 version := "1.0"
 
-scalaVersion := "3.2.2"
+scalaVersion := "3.3.0"
 
 scalacOptions ++= Seq(
   "-deprecation",
