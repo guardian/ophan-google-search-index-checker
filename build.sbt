@@ -25,7 +25,7 @@ libraryDependencies ++= Seq(
   "com.lihaoyi" %% "upickle" % "3.1.0",
 
   "com.madgag" %% "scala-collection-plus" % "0.11",
-  "com.google.http-client" % "google-http-client-gson" % "1.42.3",
+  "com.google.http-client" % "google-http-client-gson" % "1.43.3",
   "com.google.apis" % "google-api-services-customsearch" % "v1-rev20230319-2.0.0",
   "org.scanamo" %% "scanamo" % "1.0.0-M26",
   ("com.gu" %% "content-api-client-default" % "19.0.5").cross(CrossVersion.for3Use2_13),
