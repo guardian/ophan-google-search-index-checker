@@ -31,7 +31,7 @@ libraryDependencies ++= Seq(
   ("com.gu" %% "content-api-client-default" % "19.3.1").cross(CrossVersion.for3Use2_13),
   "org.scalatest" %% "scalatest" % "3.2.16" % Test
 
-) ++ Seq("ssm", "url-connection-client").map(artifact => "software.amazon.awssdk" % artifact % "2.20.95")
+) ++ Seq("ssm", "url-connection-client").map(artifact => "software.amazon.awssdk" % artifact % "2.20.96")
 
 enablePlugins(RiffRaffArtifact, BuildInfoPlugin)
 
