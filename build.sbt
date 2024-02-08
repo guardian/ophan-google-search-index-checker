@@ -8,7 +8,7 @@ description:= "Checking whether Guardian content is available in google search"
 
 version := "1.0"
 
-scalaVersion := "3.3.0"
+scalaVersion := "3.3.1"
 
 scalacOptions ++= Seq(
   "-deprecation",
@@ -20,16 +20,16 @@ libraryDependencies ++= Seq(
   "com.amazonaws" % "aws-lambda-java-core" % "1.2.3",
   "com.amazonaws" % "aws-lambda-java-events" % "3.11.4",
   "net.logstash.logback" % "logstash-logback-encoder" % "7.4",
-  "org.slf4j" % "log4j-over-slf4j" % "2.0.7", //  log4j-over-slf4j provides `org.apache.log4j.MDC`, which is dynamically loaded by the Lambda runtime
-  "ch.qos.logback" % "logback-classic" % "1.4.8",
-  "com.lihaoyi" %% "upickle" % "3.1.2",
+  "org.slf4j" % "log4j-over-slf4j" % "2.0.12", //  log4j-over-slf4j provides `org.apache.log4j.MDC`, which is dynamically loaded by the Lambda runtime
+  "ch.qos.logback" % "logback-classic" % "1.4.14",
+  "com.lihaoyi" %% "upickle" % "3.1.4",
 
   "com.madgag" %% "scala-collection-plus" % "0.11",
-  "com.google.http-client" % "google-http-client-gson" % "1.43.3",
-  "com.google.apis" % "google-api-services-customsearch" % "v1-rev20230319-2.0.0",
-  "org.scanamo" %% "scanamo" % "1.0.0-M26",
-  ("com.gu" %% "content-api-client-default" % "19.3.1").cross(CrossVersion.for3Use2_13),
-  "org.scalatest" %% "scalatest" % "3.2.16" % Test
+  "com.google.http-client" % "google-http-client-gson" % "1.44.1",
+  "com.google.apis" % "google-api-services-customsearch" % "v1-rev20240103-2.0.0",
+  "org.scanamo" %% "scanamo" % "1.0.0-M30",
+  ("com.gu" %% "content-api-client-default" % "19.3.2").cross(CrossVersion.for3Use2_13),
+  "org.scalatest" %% "scalatest" % "3.2.18" % Test
 
 ) ++ Seq("ssm", "url-connection-client").map(artifact => "software.amazon.awssdk" % artifact % "2.20.162")
 
