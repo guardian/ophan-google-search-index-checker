@@ -1,6 +1,5 @@
 package ophan.google.index.checker
 
-import com.google.api.services.customsearch.v1.model.Result
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
@@ -12,9 +11,14 @@ class GoogleSearchServiceTest extends AnyFlatSpec with Matchers {
       "https://www.theguardian.com/food/2022/sep/15/korean-hotdogs-k-dogs-sausage-cheese-fast-food?utm_term=Autofeed&CMP=twt_gu&utm_medium&utm_source=Twitter"
 
     val canonicalPageUrl = URI.create("https://www.theguardian.com/food/2022/sep/15/korean-hotdogs-k-dogs-sausage-cheese-fast-food")
-    GoogleSearchService.resultMatches(canonicalPageUrl, resultWithLink(googleResultLink)) shouldBe true
+
+    GoogleSearchService.resultMatches(
+      canonicalPageUrl,
+      SearchResult(
+        Document(
+          DerivedStructData(googleResultLink)
+        )
+      )
+    ) shouldBe true
   }
-
-
-  private def resultWithLink(googleResultLink: String) = new Result().setLink(googleResultLink)
 }
