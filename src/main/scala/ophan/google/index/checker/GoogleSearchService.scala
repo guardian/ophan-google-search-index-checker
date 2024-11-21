@@ -28,7 +28,7 @@ object SearchResult {
   implicit val rw: ReadWriter[SearchResult] = macroRW
 }
 
-case class SearchResponse(results: List[SearchResult])
+case class SearchResponse(results: List[SearchResult] = List.empty)
 
 object SearchResponse {
   implicit val rw: ReadWriter[SearchResponse] = macroRW
@@ -47,25 +47,35 @@ class GoogleSearchService(
 
   def contentAvailabilityInGoogleIndex(content: ContentSummary): Future[CheckReport] = Future {
     blocking {
-      val requestBody = ujson.Obj(
-        "query" -> content.reliableSearchTerm,
-        "pageSize" -> 10
-      )
+      def performSearch(searchTerm: String): Boolean = {
+        val requestBody = ujson.Obj(
+          "query" -> searchTerm,
+          "pageSize" -> 10
+        )
 
-      val request = HttpRequest.newBuilder()
-        .uri(URI.create(s"$baseUrl?key=$apiKey"))
-        .header("Content-Type", "application/json")
-        .header("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36")
-        .POST(HttpRequest.BodyPublishers.ofString(requestBody.toString()))
-        .build()
+        val request = HttpRequest.newBuilder()
+          .uri(URI.create(s"$baseUrl?key=$apiKey"))
+          .header("Content-Type", "application/json")
+          .header("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36")
+          .POST(HttpRequest.BodyPublishers.ofString(requestBody.toString()))
+          .build()
 
-      CheckReport(Instant.now, accessGoogleIndex = Try {
         val response = httpClient.send(request, java.net.http.HttpResponse.BodyHandlers.ofString())
+        print(response.body())
 
         val searchResponse = read[SearchResponse](response.body())
-
         searchResponse.results.exists { result =>
           resultMatches(content.webUrl, result)
+        }
+      }
+
+      CheckReport(Instant.now, accessGoogleIndex = Try {
+        val initialResult = performSearch(content.reliableSearchTerm)
+
+        if (!initialResult) {
+          performSearch(content.webTitle)
+        } else {
+          initialResult
         }
       })
     }
