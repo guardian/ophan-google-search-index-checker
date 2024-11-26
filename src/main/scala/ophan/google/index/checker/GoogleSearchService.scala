@@ -60,7 +60,6 @@ class GoogleSearchService(
           .build()
 
         val response = httpClient.send(request, java.net.http.HttpResponse.BodyHandlers.ofString())
-        print(response.body())
 
         val searchResponse = read[SearchResponse](response.body())
         searchResponse.results.exists { result =>
@@ -72,6 +71,7 @@ class GoogleSearchService(
         val initialResult = performSearch(content.reliableSearchTerm)
 
         if (!initialResult) {
+          println(s"executing fallback for ${content.id}")
           performSearch(content.webTitle)
         } else {
           initialResult
