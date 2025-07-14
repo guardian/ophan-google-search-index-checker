@@ -30,6 +30,8 @@ libraryDependencies ++= Seq(
 
 ) ++ Seq("ssm", "url-connection-client").map(artifact => "software.amazon.awssdk" % artifact % "2.25.28")
 
+dependencyOverrides += "io.netty" % "netty-handler" % "4.1.118.Final"
+
 enablePlugins(RiffRaffArtifact, BuildInfoPlugin)
 
 assemblyJarName := s"${name.value}.jar"
