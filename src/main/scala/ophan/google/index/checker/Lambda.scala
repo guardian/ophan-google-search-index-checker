@@ -22,12 +22,11 @@ object Lambda extends Logging {
   }
 
   val googleSearchService: GoogleSearchService = {
-    val apiKey = fetchKeyFromParameterStore("Google/CustomSearch/ApiKeyNotEncrypted")
-    new GoogleSearchService(apiKey)
+    val apiKey = fetchKeyFromParameterStore("Google/VertexAISearch/ApiKeyNotEncrypted")
+    new GoogleSearchService("ophan-reborn-2017", "global", "ophan-guardian-indexing_1731498624283", apiKey)
   }
 
   val dataStore = new DataStore()
-
 
   // content that we have no 'found' record for - AND have not checked too often/recently
   def contentThatNeedsCheckingNowGiven(

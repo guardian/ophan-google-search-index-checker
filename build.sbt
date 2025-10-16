@@ -23,15 +23,14 @@ libraryDependencies ++= Seq(
   "org.slf4j" % "log4j-over-slf4j" % "2.0.12", //  log4j-over-slf4j provides `org.apache.log4j.MDC`, which is dynamically loaded by the Lambda runtime
   "ch.qos.logback" % "logback-classic" % "1.5.3",
   "com.lihaoyi" %% "upickle" % "3.2.0",
-
   "com.madgag" %% "scala-collection-plus" % "0.11",
-  "com.google.http-client" % "google-http-client-gson" % "1.44.1",
-  "com.google.apis" % "google-api-services-customsearch" % "v1-rev20240103-2.0.0",
   "org.scanamo" %% "scanamo" % "1.0.0",
   ("com.gu" %% "content-api-client-default" % "25.0.1").cross(CrossVersion.for3Use2_13),
   "org.scalatest" %% "scalatest" % "3.2.18" % Test
 
 ) ++ Seq("ssm", "url-connection-client").map(artifact => "software.amazon.awssdk" % artifact % "2.25.28")
+
+dependencyOverrides += "io.netty" % "netty-handler" % "4.1.118.Final"
 
 enablePlugins(RiffRaffArtifact, BuildInfoPlugin)
 

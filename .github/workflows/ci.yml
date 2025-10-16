@@ -26,11 +26,7 @@ jobs:
       - name: Restore and save dependency cache
         uses: coursier/cache-action@v6
 
-      - name: Set up Java
-        uses: actions/setup-java@v2
-        with:
-          java-version: 11
-          distribution: adopt
+      - uses: guardian/setup-scala@v1
 
       - name: Test PR from forked repo
         if: env.isPrFromForkedRepo == 'true'

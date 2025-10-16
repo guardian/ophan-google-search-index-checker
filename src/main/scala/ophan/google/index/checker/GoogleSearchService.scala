@@ -1,56 +1,89 @@
 package ophan.google.index.checker
 
-import com.google.api.client.http.HttpRequest
-import com.google.api.client.http.javanet.NetHttpTransport
-import com.google.api.client.json.gson.GsonFactory
-import com.google.api.services.customsearch.v1.CustomSearchAPI
-import com.google.api.services.customsearch.v1.model.{Result, Search}
 import ophan.google.index.checker.GoogleSearchService.resultMatches
-import ophan.google.index.checker.model.{CheckReport, ContentSummary}
+import upickle.default.*
 
 import java.net.URI
+import java.net.http.{HttpClient, HttpRequest}
 import java.time.Instant
 import scala.concurrent.{ExecutionContext, Future, blocking}
-import scala.jdk.CollectionConverters._
 import scala.util.Try
+import ophan.google.index.checker.model.{CheckReport, ContentSummary}
+
+case class DerivedStructData(link: String)
+
+object DerivedStructData {
+  implicit val rw: ReadWriter[DerivedStructData] = macroRW
+}
+
+case class Document(derivedStructData: DerivedStructData)
+
+object Document {
+  implicit val rw: ReadWriter[Document] = macroRW
+}
+
+case class SearchResult(document: Document)
+
+object SearchResult {
+  implicit val rw: ReadWriter[SearchResult] = macroRW
+}
+
+case class SearchResponse(results: List[SearchResult] = List.empty)
+
+object SearchResponse {
+  implicit val rw: ReadWriter[SearchResponse] = macroRW
+}
 
 class GoogleSearchService(
-  apiKey: String
-)(implicit
-  ec: ExecutionContext
-) {
-  val search =
-    new CustomSearchAPI.Builder(
-      new NetHttpTransport,
-      new GsonFactory,
-      (request: HttpRequest) => {
-        request.getHeaders.setUserAgent("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36")
+                           projectId: String,
+                           location: String,
+                           dataStoreId: String,
+                           apiKey: String
+                         )(implicit ec: ExecutionContext) {
 
+  private val baseUrl = s"https://discoveryengine.googleapis.com/v1/projects/$projectId/locations/$location/dataStores/$dataStoreId/servingConfigs/default_config:searchLite"
+
+  private val httpClient = HttpClient.newHttpClient()
+
+  def contentAvailabilityInGoogleIndex(content: ContentSummary): Future[CheckReport] = Future {
+    blocking {
+      def performSearch(searchTerm: String): Boolean = {
+        val requestBody = ujson.Obj(
+          "query" -> searchTerm,
+          "pageSize" -> 10
+        )
+
+        val request = HttpRequest.newBuilder()
+          .uri(URI.create(s"$baseUrl?key=$apiKey"))
+          .header("Content-Type", "application/json")
+          .POST(HttpRequest.BodyPublishers.ofString(requestBody.toString()))
+          .build()
+
+        val response = httpClient.send(request, java.net.http.HttpResponse.BodyHandlers.ofString())
+
+        val searchResponse = read[SearchResponse](response.body())
+        searchResponse.results.exists { result =>
+          resultMatches(content.webUrl, result)
+        }
       }
-    ).setApplicationName("search-index-checker").build()
 
-  def contentAvailabilityInGoogleIndex(content: ContentSummary): Future[CheckReport] = Future { blocking {
-      val listRequest = search.cse.siterestrict.list()
-        .setKey(apiKey)
-        .setCx("415ef252844d240a7") // see https://programmablesearchengine.google.com/controlpanel/all
-        .setQ(content.reliableSearchTerm)
-      CheckReport(Instant.now, accessGoogleIndex = Try(listRequest.execute()).map { googleSearchResponse =>
-        findContentMatchInGoogleSearchResponse(googleSearchResponse, content.webUrl).isDefined
+      CheckReport(Instant.now, accessGoogleIndex = Try {
+        val initialResult = performSearch(content.reliableSearchTerm)
+
+        if (!initialResult) {
+          println(s"executing fallback for ${content.id}")
+          performSearch(content.webTitle)
+        } else {
+          initialResult
+        }
       })
     }
   }
-
-  def findContentMatchInGoogleSearchResponse(googleSearchResponse: Search, webUrl: URI): Option[com.google.api.services.customsearch.v1.model.Result] = {
-    Option(googleSearchResponse.getItems).flatMap { items =>
-      items.asScala.toSeq.find { result => resultMatches(webUrl, result) }
-    }
-  }
-
 }
 
 object GoogleSearchService {
-  def resultMatches(webUrl: URI, result: Result): Boolean = Option(result.getLink).exists { link =>
-    val resultUri = URI.create(link)
+  def resultMatches(webUrl: URI, result: SearchResult): Boolean = {
+    val resultUri = URI.create(result.document.derivedStructData.link)
     resultUri.getHost == webUrl.getHost && resultUri.getPath == webUrl.getPath
   }
 }
