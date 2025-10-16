@@ -28,7 +28,7 @@ libraryDependencies ++= Seq(
   ("com.gu" %% "content-api-client-default" % "25.0.1").cross(CrossVersion.for3Use2_13),
   "org.scalatest" %% "scalatest" % "3.2.18" % Test
 
-) ++ Seq("ssm", "url-connection-client").map(artifact => "software.amazon.awssdk" % artifact % "2.25.28")
+) ++ Seq("ssm", "url-connection-client").map(artifact => "software.amazon.awssdk" % artifact % "2.25.29")
 
 dependencyOverrides += "io.netty" % "netty-handler" % "4.1.118.Final"
 
