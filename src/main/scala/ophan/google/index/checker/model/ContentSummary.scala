@@ -14,7 +14,8 @@ import scala.math.Ordering.Implicits._
 case class ContentSummary(
   id: String,
   firstPublished: Instant,
-  webUrl: URI
+  webUrl: URI,
+  webTitle: String
 ) {
   /**
    * This string should be something that, when you type it into Google, you
@@ -55,6 +56,6 @@ object ContentSummary {
   def from(content: Content): Option[ContentSummary] = for {
     fields <- content.fields
     firstPublished <- fields.firstPublicationDate
-  } yield ContentSummary(content.id, Instant.ofEpochMilli(firstPublished.dateTime), URI.create(content.webUrl))
+  } yield ContentSummary(content.id, Instant.ofEpochMilli(firstPublished.dateTime), URI.create(content.webUrl), content.webTitle)
 
 }
