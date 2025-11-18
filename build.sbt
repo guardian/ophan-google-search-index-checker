@@ -24,13 +24,11 @@ libraryDependencies ++= Seq(
   "ch.qos.logback" % "logback-classic" % "1.5.3",
   "com.lihaoyi" %% "upickle" % "3.2.0",
   "com.madgag" %% "scala-collection-plus" % "0.11",
-  "org.scanamo" %% "scanamo" % "1.0.0",
+  "org.scanamo" %% "scanamo" % "4.0.0",
   ("com.gu" %% "content-api-client-default" % "25.0.1").cross(CrossVersion.for3Use2_13),
   "org.scalatest" %% "scalatest" % "3.2.18" % Test
 
-) ++ Seq("ssm", "url-connection-client").map(artifact => "software.amazon.awssdk" % artifact % "2.25.29")
-
-dependencyOverrides += "io.netty" % "netty-handler" % "4.1.118.Final"
+) ++ Seq("ssm", "url-connection-client").map(artifact => "software.amazon.awssdk" % artifact % "2.37.0")
 
 enablePlugins(RiffRaffArtifact, BuildInfoPlugin)
 
