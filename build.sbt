@@ -8,7 +8,7 @@ description:= "Checking whether Guardian content is available in google search"
 
 version := "1.0"
 
-scalaVersion := "3.3.3"
+scalaVersion := "3.3.7"
 
 scalacOptions ++= Seq(
   "-deprecation",
@@ -19,14 +19,14 @@ scalacOptions ++= Seq(
 libraryDependencies ++= Seq(
   "com.amazonaws" % "aws-lambda-java-core" % "1.2.3",
   "com.amazonaws" % "aws-lambda-java-events" % "3.11.4",
-  "net.logstash.logback" % "logstash-logback-encoder" % "7.4",
-  "org.slf4j" % "log4j-over-slf4j" % "2.0.12", //  log4j-over-slf4j provides `org.apache.log4j.MDC`, which is dynamically loaded by the Lambda runtime
-  "ch.qos.logback" % "logback-classic" % "1.5.3",
-  "com.lihaoyi" %% "upickle" % "3.2.0",
-  "com.madgag" %% "scala-collection-plus" % "0.11",
-  "org.scanamo" %% "scanamo" % "4.0.0",
+  "net.logstash.logback" % "logstash-logback-encoder" % "9.0",
+  "org.slf4j" % "log4j-over-slf4j" % "2.0.17", //  log4j-over-slf4j provides `org.apache.log4j.MDC`, which is dynamically loaded by the Lambda runtime
+  "ch.qos.logback" % "logback-classic" % "1.5.21",
+  "com.lihaoyi" %% "upickle" % "3.3.1",
+  "com.madgag" %% "scala-collection-plus" % "1.0.0",
+  "org.scanamo" %% "scanamo" % "5.0.0",
   ("com.gu" %% "content-api-client-default" % "25.0.1").cross(CrossVersion.for3Use2_13),
-  "org.scalatest" %% "scalatest" % "3.2.18" % Test
+  "org.scalatest" %% "scalatest" % "3.2.19" % Test
 
 ) ++ Seq("ssm", "url-connection-client").map(artifact => "software.amazon.awssdk" % artifact % "2.37.0")
 
