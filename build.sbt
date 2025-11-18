@@ -22,7 +22,7 @@ libraryDependencies ++= Seq(
   "net.logstash.logback" % "logstash-logback-encoder" % "7.4",
   "org.slf4j" % "log4j-over-slf4j" % "2.0.12", //  log4j-over-slf4j provides `org.apache.log4j.MDC`, which is dynamically loaded by the Lambda runtime
   "ch.qos.logback" % "logback-classic" % "1.5.21",
-  "com.lihaoyi" %% "upickle" % "3.2.0",
+  "com.lihaoyi" %% "upickle" % "3.3.1",
   "com.madgag" %% "scala-collection-plus" % "0.11",
   "org.scanamo" %% "scanamo" % "4.0.0",
   ("com.gu" %% "content-api-client-default" % "25.0.1").cross(CrossVersion.for3Use2_13),
