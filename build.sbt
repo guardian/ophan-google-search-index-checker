@@ -9,6 +9,7 @@ description:= "Checking whether Guardian content is available in google search"
 version := "1.0"
 
 scalaVersion := "3.3.3"
+val jacksonVersion = "2.18.6"
 
 scalacOptions ++= Seq(
   "-deprecation",
@@ -29,6 +30,12 @@ libraryDependencies ++= Seq(
   "org.scalatest" %% "scalatest" % "3.2.18" % Test
 
 ) ++ Seq("ssm", "url-connection-client").map(artifact => "software.amazon.awssdk" % artifact % "2.37.0")
+
+dependencyOverrides ++= Seq(
+  "com.fasterxml.jackson.core" % "jackson-annotations" % jacksonVersion,
+  "com.fasterxml.jackson.core" % "jackson-core" % jacksonVersion,
+  "com.fasterxml.jackson.core" % "jackson-databind" % jacksonVersion
+)
 
 enablePlugins(RiffRaffArtifact, BuildInfoPlugin)
 
