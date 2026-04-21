@@ -28,7 +28,7 @@ libraryDependencies ++= Seq(
   "com.fasterxml.jackson.core" % "jackson-databind" % jacksonVersion,
   "com.lihaoyi" %% "upickle" % "3.2.0",
   "com.madgag" %% "scala-collection-plus" % "0.11",
-  "org.scanamo" %% "scanamo" % "4.0.0",
+  "org.scanamo" %% "scanamo" % "7.0.0",
   ("com.gu" %% "content-api-client-default" % "40.0.0").cross(CrossVersion.for3Use2_13),
   "org.scalatest" %% "scalatest" % "3.2.18" % Test
 
