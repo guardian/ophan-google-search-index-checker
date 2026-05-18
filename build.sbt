@@ -10,6 +10,7 @@ version := "1.0"
 
 scalaVersion := "3.3.3"
 val jacksonVersion = "2.18.6"
+val nettyVersion = "4.1.133.Final"
 
 scalacOptions ++= Seq(
   "-deprecation",
@@ -26,8 +27,12 @@ libraryDependencies ++= Seq(
   "com.fasterxml.jackson.core" % "jackson-annotations" % jacksonVersion,
   "com.fasterxml.jackson.core" % "jackson-core" % jacksonVersion,
   "com.fasterxml.jackson.core" % "jackson-databind" % jacksonVersion,
+  "io.netty" % "netty-codec" % nettyVersion,
+  "io.netty" % "netty-codec-http" % nettyVersion,
+  "io.netty" % "netty-codec-http2" % nettyVersion,
   "com.lihaoyi" %% "upickle" % "3.2.0",
   "com.madgag" %% "scala-collection-plus" % "0.11",
+  "org.apache.thrift" % "libthrift" % "0.23.0",
   "org.scanamo" %% "scanamo" % "4.0.0",
   ("com.gu" %% "content-api-client-default" % "40.0.0").cross(CrossVersion.for3Use2_13),
   "org.scalatest" %% "scalatest" % "3.2.18" % Test
