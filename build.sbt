@@ -9,7 +9,7 @@ description:= "Checking whether Guardian content is available in google search"
 version := "1.0"
 
 scalaVersion := "3.3.3"
-val jacksonVersion = "2.18.9"
+val jacksonVersion = "2.22"
 val nettyVersion = "4.2.16.Final"
 
 scalacOptions ++= Seq(
