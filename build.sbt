@@ -31,7 +31,7 @@ libraryDependencies ++= Seq(
   "io.netty" % "netty-codec-http" % nettyVersion,
   "io.netty" % "netty-codec-http2" % nettyVersion,
   "com.lihaoyi" %% "upickle" % "3.2.0",
-  "com.madgag" %% "scala-collection-plus" % "0.11",
+  "com.madgag" %% "scala-collection-plus" % "1.0.0",
   "org.apache.thrift" % "libthrift" % "0.23.0",
   "org.scanamo" %% "scanamo" % "4.0.0",
   ("com.gu" %% "content-api-client-default" % "40.0.0").cross(CrossVersion.for3Use2_13),
