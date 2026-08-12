@@ -34,7 +34,7 @@ libraryDependencies ++= Seq(
   "com.madgag" %% "scala-collection-plus" % "0.11",
   "org.apache.thrift" % "libthrift" % "0.23.0",
   "org.scanamo" %% "scanamo" % "4.0.0",
-  ("com.gu" %% "content-api-client-default" % "40.0.0").cross(CrossVersion.for3Use2_13),
+  ("com.gu" %% "content-api-client-default" % "41.0.0").cross(CrossVersion.for3Use2_13),
   "org.scalatest" %% "scalatest" % "3.2.18" % Test
 
 ) ++ Seq("ssm", "url-connection-client").map(artifact => "software.amazon.awssdk" % artifact % "2.37.0")
