@@ -36,7 +36,7 @@ libraryDependencies ++= Seq(
   // Force patched httpcore5 versions: CVE-2026-54399, CVE-2026-54428
   "org.apache.httpcomponents.core5" % "httpcore5" % "5.4.3",
   "org.apache.httpcomponents.core5" % "httpcore5-h2" % "5.4.3",
-  "org.scanamo" %% "scanamo" % "4.0.0",
+  "org.scanamo" %% "scanamo" % "7.0.0",
   ("com.gu" %% "content-api-client-default" % "40.0.0").cross(CrossVersion.for3Use2_13),
   "org.scalatest" %% "scalatest" % "3.2.18" % Test
 
