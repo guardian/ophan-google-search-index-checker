@@ -30,7 +30,7 @@ libraryDependencies ++= Seq(
   "io.netty" % "netty-codec" % nettyVersion,
   "io.netty" % "netty-codec-http" % nettyVersion,
   "io.netty" % "netty-codec-http2" % nettyVersion,
-  "com.lihaoyi" %% "upickle" % "3.2.0",
+  "com.lihaoyi" %% "upickle" % "3.3.1",
   "com.madgag" %% "scala-collection-plus" % "0.11",
   "org.apache.thrift" % "libthrift" % "0.24.0",
   // Force patched httpcore5 versions: CVE-2026-54399, CVE-2026-54428
