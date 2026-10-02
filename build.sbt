@@ -39,7 +39,7 @@ libraryDependencies ++= Seq(
   "org.apache.httpcomponents.core5" % "httpcore5-h2" % "5.4.4",
   "org.scanamo" %% "scanamo" % "4.0.0",
   ("com.gu" %% "content-api-client-default" % "40.0.0").cross(CrossVersion.for3Use2_13),
-  "org.scalatest" %% "scalatest" % "3.2.18" % Test
+  "org.scalatest" %% "scalatest" % "3.2.20" % Test
 
 ) ++ Seq("ssm", "url-connection-client").map(artifact => "software.amazon.awssdk" % artifact % "2.37.0")
 
